@@ -8,8 +8,8 @@
     ((capacity) < 8 ? 8 : (capacity) * 2)
 
 #define GROW_ARRAY(type,array,old_count,new_count)\
-    (type*)reallocate(array,sizeof(type)*old_count),\
-     sizeof(type)*new_count
+    (type*)reallocate(array,sizeof(type)*old_count,\
+     sizeof(type)*new_count)
 
 #define FREE_ARR(type,array,old_count)\
     reallocate(array,sizeof(type)*old_count,0)

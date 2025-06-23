@@ -9,7 +9,7 @@ void initPile(Pile* pile){
     pile->code=NULL;
 }
 void writePile(Pile* pile,uint8_t byte){
-    if (pile->index+1 > pile->capacity){
+    if (pile->capacity < pile->index+1){
         int old_capacity=pile->capacity;
         pile->capacity=GROW_CAPACITY(old_capacity);
         pile->code=GROW_ARRAY(uint8_t,pile->code,old_capacity,pile->capacity);

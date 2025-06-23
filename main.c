@@ -1,9 +1,15 @@
 #include "common.h"
+#include "debug.h"
+#include "pile.h"
 
-int main(int argc, const char* argv[]){
-    //char* argv[] means the argv is array
-//that has elements which contain memory
-//addresses of strings which are
-//somewhere in the program 
-    return 0;
+int main(int argc, const char* argv[]) {
+
+  Pile pile ;
+  initPile(&pile);
+  writePile(&pile, OP_RETURN);
+  disassemblePile(&pile, "test chunk");
+  freepile(&pile);
+
+  return 0;
 }
+
