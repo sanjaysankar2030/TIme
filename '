@@ -1,0 +1,24 @@
+#include "common.h"
+#include "debug.h"
+/* #include "pile.h" */
+
+int main(int argc, const char* argv[]) {
+
+  Pile pile ;
+  initPile(&pile);
+//adding constants to the const pile
+  int const_index=addConst(&pile,1.2);
+  //wrinting the OP_CONSTANT to pile* pile
+  writePile( &pile,  OP_CONSTANT);
+
+  //writing the const_index to pile after the op code OP_CONSTANT OP
+  writePile( &pile, const_index );
+
+  writePile(&pile, OP_RETURN);
+  disassemblePile(&pile, "test chunk");
+  freepile(&pile);
+  printf()
+
+  /* return 0; */
+}
+

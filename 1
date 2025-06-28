@@ -1,30 +1,14 @@
-#include "debug.h"
-#include "common.h"
-#include <stdint.h>
-#include <stdio.h>
+#!/bin/bash
 
-#include "pile.h"
 
-void disassemblePile(Pile* pile,const char* name){
-    printf("_____%s_____\n",name);
-    for(int offset=0;offset < pile->index;){
-        offset=disassembleInstruction(pile, offset);
-    }
-}
-int disassembleInstruction(Pile* pile,int offset){
-    printf("%d",offset);
-    uint8_t instruction=pile->code[offset];
-    switch(instruction){
-        case OP_RETURN:
-            return simpleInstruction("OP_RETURN",offset);
-        default:
-            printf("Unkown OpCodei %d",instruction);
-            return offset+1;
-    }
-    
-}
-static int simpleInstruction(const char* operation,int offset){
-    printf("%s\n",operation);
-    return offset+1;
-}
 
+echo "Compilation starts...."
+for f in *.c;do 
+    gcc  "f"
+done
+echo "Compilation done..."
+echo "Merging dot files"
+gcc *.o myprogram
+
+echo "-----------x-------------"
+echo "Compilation complete"
