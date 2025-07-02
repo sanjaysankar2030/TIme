@@ -4,6 +4,7 @@
 #include "common.h"
 
 typedef double Consts;
+// Consts is a typedef
 typedef struct {
   int index;
   int capacity;

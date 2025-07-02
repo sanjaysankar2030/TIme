@@ -1,24 +1,46 @@
 #include "vm.h"
 
-#include <stdio.h>
+/* #include <stdio.h> */
 
 #include "common.h"
 #include "debug.h"
 #include "pile.h"
+#include "value.h"
 
 VM vm;
-void initVM() {}
+void initVM() { initstack(); }
+static void initstack() { vm.sp = vm.stack; }
 void freeVM() {}
-InterpretErrors interpret(Pile *pile) {
+
+void put(Consts input) {
+  *vm.sp = input;
+  vm.sp++;
+}
+
+Consts pull() {
+  vm.sp--;
+  return *vm.sp;
+}
+InterpretErrors interpret(Pile* pile) {
   vm.vm_array = pile;
   vm.bp = vm.vm_array->code;
   return run();
 }
+
 static InterpretErrors run() {
 #define READ_BYTE() (*vm.bp++)
 #define READ_CONST() (vm.vm_array->constpile.const_arr[READ_BYTE()])
+
   for (;;) {
 #ifdef DEBUG_TRACE_EXECUTION
+    printf("                               ");
+    for (Value* logger = vm.stack; logger < vm.sp; logger++) {
+      printf("[");
+      printConst(*logger);
+      printf("]");
+    }
+    printf("\n");
+
     disassembleInstruction(vm.vm_array, (int)(vm.ip - vm.vm_array->code));
     // used to determine the offset
 #endif
@@ -27,11 +49,11 @@ static InterpretErrors run() {
     switch (instruction = READ_BYTE()) {
       case OP_CONSTANT: {
         Consts constant = READ_CONST();
-        printConst(constant);
-        printf("\n");
+        put(constant);
         break;
       }
       case OP_RETURN: {
+        printConst(pull());
         return INTERPRET_OK;
       }
     }
