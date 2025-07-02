@@ -28,6 +28,9 @@ int disassembleInstruction(Pile* pile, int offset) {
   switch (instruction) {
     case OP_CONSTANT:
       return constantInstruction("OP_CONSTANT", pile, offset);
+    case OP_NEGATE:
+      // what is the case to use
+
     case OP_RETURN:
       return simpleInstruction("OP_RETURN", offset);
 
@@ -41,9 +44,10 @@ static int simpleInstruction(const char* operation, int offset) {
   return offset + 1;
 }
 static int constantInstruction(const char* name, Pile* pile, int offset) {
-  uint8_t const_index = pile->code[offset + 1];
+  uint8_t const_index =
+      pile->code[offset + 1];  // OP_CONSTANT->0 const_index->1
   printf("%s %04d   ", name, const_index);
-  printConst(pile->constpile.const_arr[const_index]);
+  printConst(pile->constpile.const_arr[const_index]);  // constant value
   return offset + 2;
 }
 void printConst(Consts value) { printf("%g\n", value); }

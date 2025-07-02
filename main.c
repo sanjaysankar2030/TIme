@@ -16,6 +16,8 @@ int main(int argc, const char* argv[]) {
   // writing the const_index to pile after the op code OP_CONSTANT OP
   writePile(&pile, const_index, 1);
 
+  writePile(&pile, OP_NEGATE, 1);
+
   writePile(&pile, OP_RETURN, 1);
   disassemblePile(&pile, "test chunk");
   interpret(&pile);

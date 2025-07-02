@@ -1,5 +1,7 @@
 #include "vm.h"
 
+/* #include <cstdio> */
+
 /* #include <stdio.h> */
 
 #include "common.h"
@@ -33,6 +35,7 @@ static InterpretErrors run() {
 
   for (;;) {
 #ifdef DEBUG_TRACE_EXECUTION
+    printf("🚨 DEBUG TRACE IS ON 🚨\n");
     printf("                               ");
     for (Value* logger = vm.stack; logger < vm.sp; logger++) {
       printf("[");
@@ -50,6 +53,10 @@ static InterpretErrors run() {
       case OP_CONSTANT: {
         Consts constant = READ_CONST();
         put(constant);
+        break;
+      }
+      case OP_NEGATE: {
+        put(-pull());
         break;
       }
       case OP_RETURN: {
