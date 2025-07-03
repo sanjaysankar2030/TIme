@@ -2,7 +2,7 @@
 
 /* #include <cstdio> */
 
-/* #include <stdio.h> */
+/* #include <math.h> */
 
 #include "common.h"
 #include "debug.h"
@@ -32,6 +32,20 @@ InterpretErrors interpret(Pile* pile) {
 static InterpretErrors run() {
 #define READ_BYTE() (*vm.bp++)
 #define READ_CONST() (vm.vm_array->constpile.const_arr[READ_BYTE()])
+// for binary operations
+#define BINARY_OP(op)  \
+  do {                 \
+    double b = pull(); \
+    double a = pull(); \
+    put(a op b);       \
+  } while (0)
+#define MODULO(op)                    \
+  do {                                \
+    double b = pull();                \
+    double a = pull();                \
+    double c = a - b * (long)(a / b); \
+    put(c);                           \
+  } while (0)
 
   for (;;) {
 #ifdef DEBUG_TRACE_EXECUTION
@@ -59,6 +73,26 @@ static InterpretErrors run() {
         put(-pull());
         break;
       }
+      case OP_ADD: {
+        BINARY_OP(+);
+        break;
+      }
+      case OP_SUB: {
+        BINARY_OP(-);
+        break;
+      }
+      case OP_MULT: {
+        BINARY_OP(*);
+        break;
+      }
+      case OP_DIV: {
+        BINARY_OP(/);
+        break;
+      }
+      /* case OP_MOD: { */
+      /*   MODULO(%); */
+      /*   break; */
+      /* } */
       case OP_RETURN: {
         printConst(pull());
         return INTERPRET_OK;

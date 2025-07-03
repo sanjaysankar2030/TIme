@@ -12,11 +12,21 @@ int main(int argc, const char* argv[]) {
   int const_index = addConst(&pile, 1.2);
   // wrinting the OP_CONSTANT to pile* pile
   writePile(&pile, OP_CONSTANT, 1);
-
-  // writing the const_index to pile after the op code OP_CONSTANT OP
   writePile(&pile, const_index, 1);
 
+  const_index = addConst(&pile, 3.4);
+  writePile(&pile, OP_CONSTANT, 1);
+  writePile(&pile, const_index, 1);
+  writePile(&pile, OP_ADD, 1);
+
+  const_index = addConst(&pile, 5.6);
+  writePile(&pile, OP_CONSTANT, 1);
+  writePile(&pile, const_index, 1);
+  writePile(&pile, OP_DIV, 1);
+
   writePile(&pile, OP_NEGATE, 1);
+
+  /* writePile(&pile, OP_MOD, 1); */
 
   writePile(&pile, OP_RETURN, 1);
   disassemblePile(&pile, "test chunk");

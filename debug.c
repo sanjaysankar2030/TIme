@@ -29,8 +29,15 @@ int disassembleInstruction(Pile* pile, int offset) {
     case OP_CONSTANT:
       return constantInstruction("OP_CONSTANT", pile, offset);
     case OP_NEGATE:
-      // what is the case to use
-
+      return constantInstruction("OP_NEGATE", pile, offset);
+    case OP_ADD:
+      return simpleInstruction("OP_ADD", offset);
+    case OP_SUB:
+      return simpleInstruction("OP_SUB", offset);
+    case OP_MULT:
+      return simpleInstruction("OP_MULT", offset);
+    case OP_DIV:
+      return simpleInstruction("OP_DIV", offset);
     case OP_RETURN:
       return simpleInstruction("OP_RETURN", offset);
 
