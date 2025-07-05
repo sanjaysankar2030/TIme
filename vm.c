@@ -23,10 +23,9 @@ Consts pull() {
   vm.sp--;
   return *vm.sp;
 }
-InterpretErrors interpret(Pile* pile) {
-  vm.vm_array = pile;
-  vm.bp = vm.vm_array->code;
-  return run();
+InterpretErrors interpret(const char* code_buffer) {
+  compile(code_buffer);
+  return INTERPRET_OK;
 }
 
 static InterpretErrors run() {

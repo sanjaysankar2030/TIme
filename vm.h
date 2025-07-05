@@ -21,7 +21,7 @@ typedef enum {
 
 void initVM();
 static void initstack();
-InterpretErrors interpret(Pile* pile);
+InterpretErrors interpret(const char* code);
 static InterpretErrors run();
 void put(Consts input);
 Consts pull();

@@ -21,12 +21,10 @@ static void repl() {
   }
 }
 
-/* Read the file */
-static char* readfile(const char* path) {
+static char* readfile(const char* path) { /* Read the file */
   FILE* fp = fopen(path, "rb");
 
-  /* Null exeption */
-  if (fp == NULL) {
+  if (fp == NULL) { /* Null exeption */
     fprintf(stderr, "Could not open file \"%s\".\n", path);
     exit(74);
   }
@@ -38,17 +36,15 @@ static char* readfile(const char* path) {
   char* buffer =
       (char*)malloc(filesize + 1);  // reading the bytes to the string
 
-  /* case checking */
-  if (buffer == NULL) {
+  if (buffer == NULL) { /* case checking */
     fprintf(stderr, "Not enough memory to read \"%s\".\n", path);
     exit(74);
   }
-  /* reading the file to the string */
   size_t buffersize = fread(buffer, sizeof(char), filesize, fp);
+  /* reading the file to the string */
   buffer[buffersize] = '\0';
 
-  /* case check */
-  if (buffersize < filesize) {
+  if (buffersize < filesize) { /* case check */
     fprintf(stderr, "Could not read file \"%s\".\n", path);
     exit(74);
   }

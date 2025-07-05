@@ -1,0 +1,19 @@
+main.c: In function ‘repl’:
+main.c:19:17: warning: passing argument 1 of ‘interpret’ from incompatible pointer type [-Wincompatible-pointer-types]
+   19 |       interpret(verses);
+      |                 ^~~~~~
+      |                 |
+      |                 char *
+In file included from main.c:8:
+vm.h:24:33: note: expected ‘Pile *’ but argument is of type ‘char *’
+   24 | InterpretErrors interpret(Pile* pile);
+      |                           ~~~~~~^~~~
+main.c: In function ‘runfile’:
+main.c:63:38: warning: passing argument 1 of ‘interpret’ from incompatible pointer type [-Wincompatible-pointer-types]
+   63 |   InterpretErrors result = interpret(code);
+      |                                      ^~~~
+      |                                      |
+      |                                      char *
+vm.h:24:33: note: expected ‘Pile *’ but argument is of type ‘char *’
+   24 | InterpretErrors interpret(Pile* pile);
+      |                           ~~~~~~^~~~
