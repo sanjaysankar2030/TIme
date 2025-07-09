@@ -1,5 +1,7 @@
 #include "vm.h"
 
+#include "compile.h"
+
 /* #include <cstdio> */
 
 /* #include <math.h> */
