@@ -1,5 +1,7 @@
 #include "compile.h"
 
+#include <stdio.h>
+
 #include "common.h"
 #include "scanner.h"
 
@@ -8,9 +10,9 @@ void compile(const char* code_buffer) {
   int line_count = -1;
   for (;;) {
     Token token = scanToken();
-    if (token.line != line) {
-      printf("%4d ", token.line);
-      line_count = token.line;
+    if (token.lines != line_count) {
+      printf("%4d ", token.lines);
+      line_count = token.lines;
     } else {
       printf("   | ");
     }

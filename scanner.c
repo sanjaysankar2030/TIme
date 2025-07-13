@@ -4,6 +4,7 @@
 #include "scanner.h"
 
 #include <stdbool.h>
+#include <string.h>
 
 typedef struct {
   const char* start;
@@ -15,21 +16,20 @@ Scanner scanner;
 
 static bool isAtEnd() { return *scanner.current == '\0'; }
 
-static giveToken(Tokentype type) { 
-    Token token;
-    token.t_type=type;
-    token.start=scanner.start;
-    token.length=(int)(scanner.current-scanner.start);
-    token.lines=scanner.lines;
-    return token;
+static Token giveToken(TokenType type) {
+  Token token;
+  token.t_type = type;
+  token.start = scanner.start;
+  token.length = (int)(scanner.current - scanner.start);
+  token.lines = scanner.lines;
+  return token;
 }
-
 static Token errorToken(const char* message) {
   Token token;
   token.t_type = TOKEN_ERROR;
   token.start = message;
   token.length = (int)strlen(message);
-  token.line = scanner.line;
+  token.lines = scanner.lines;
   return token;
 }
 void initScanner(const char* source) {
